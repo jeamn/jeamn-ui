@@ -26,6 +26,12 @@
 
     <!-- 按钮点击事件 -->
     <jeamn-button type="danger" @click="handleClick">触发危险事件</jeamn-button>
+
+    <!-- 按钮组 -->
+    <jeamn-button-group>
+      <jeamn-button icon="icon_zuo">上一页</jeamn-button>
+      <jeamn-button icon="weimingmingwenjianjia_jiantou" icon-position="right">下一页</jeamn-button>
+    </jeamn-button-group>
   </div>
 </template>
 
@@ -33,8 +39,8 @@
 export default {
   name: "App",
   methods: {
-    handleClick(e){
-      console.log('handleClick',e)
+    handleClick(e) {
+      console.log("handleClick", e);
     }
   }
 };

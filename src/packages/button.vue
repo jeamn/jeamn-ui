@@ -79,7 +79,6 @@ $active-color: #3a8ee6;
   line-height: 1;
   font-size: $font-size;
   padding: 12px 20px;
-  margin: 5px;
   display: inline-flex;
   justify-content: center;
   vertical-align: middle;
@@ -91,7 +90,7 @@ $active-color: #3a8ee6;
   &:focus,
   &:active {
     color: $active-color;
-    border-color: 1px solid $active-color;
+    border: 1px solid $active-color;
     background-color: $background;
     outline: none;
   }
