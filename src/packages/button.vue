@@ -1,5 +1,7 @@
 <template>
-  <button class="jeamn-button" :class="btnClass">
+  <button class="jeamn-button" :class="btnClass" :disabled="loading" @click="$emit('click', $event)">
+    <jeamn-icon :icon="icon" v-if="icon && !loading" class="icon"></jeamn-icon>
+    <jeamn-icon icon="91jiazai" v-if="loading" class="icon"></jeamn-icon>
     <span v-if="$slots.default">
       <slot></slot>
     </span>
@@ -19,11 +21,31 @@ export default {
           type &&
           !["warning", "success", "danger", "info", "primary"].includes(type)
         ) {
-          console.error("type类型错误");
+          console.error(
+            "type类型必须为：warning、success、danger、info、primary"
+          );
           return false;
         }
         return true;
       }
+    },
+    icon: {
+      type: String
+    },
+    iconPosition: {
+      type: String,
+      default: "left",
+      validator(type) {
+        if (!["left", "right"].includes(type)) {
+          console.error("iconPosition属性必须为：left、right");
+          return false;
+        }
+        return true;
+      }
+    },
+    loading: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -31,6 +53,9 @@ export default {
       let classes = [];
       if (this.type) {
         classes.push(`jeamn-button-${this.type}`);
+      }
+      if (this.iconPosition) {
+        classes.push(`jeamn-button-${this.iconPosition}`);
       }
       return classes;
     }
@@ -84,6 +109,7 @@ $active-color: #3a8ee6;
       background: #{$color};
       border: 1px solid #{$color};
       color: #fff;
+      fill: #fff;
     }
   }
   @each $type,
@@ -102,6 +128,36 @@ $active-color: #3a8ee6;
       border: 1px solid #{$color};
       color: #fff;
     }
+  }
+  .icon {
+    width: 16px;
+    height: 16px;
+  }
+  .icon + span {
+    margin-left: 4px;
+  }
+  &-left {
+    svg {
+      order: 1;
+    }
+    span {
+      order: 2;
+    }
+  }
+  &-right {
+    svg {
+      order: 2;
+    }
+    span {
+      order: 1;
+    }
+    .icon + span {
+      margin-left: 0;
+      margin-right: 4px;
+    }
+  }
+  &[disabled] {
+    cursor: not-allowed;
   }
 }
 </style>
